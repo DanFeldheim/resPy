@@ -1,0 +1,49 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+*.egg
+
+# Bytecode
+*.pyc
+
+# --- Jupyter ---
+.ipynb_checkpoints
+
+# --- Virtual environments ---
+venv/
+.venv/
+env/
+.env/
+ENV/
+.conda/
+conda_env/
+
+# --- Streamlit ---
+.streamlit/secrets.toml
+
+# --- Data files ---
+# Ignore large or private datasets; keep only small sample files if needed
+*.csv
+*.xlsx
+*.tsv
+*.json
+*.dat
+*.txt
+
+# If you want to track certain small sample datasets,
+# create a /data folder and un-ignore it like this:
+#!data/
+
+# --- Logs ---
+*.log
+
+# --- OS / IDE cruft ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
