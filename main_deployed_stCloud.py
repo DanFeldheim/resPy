@@ -1530,7 +1530,7 @@ class Analysis():
 
     
             # Estimate maxlag
-            maxlag = self.estimate_maxlags(residuals, max_lag=lags)
+            maxlag = self.estimate_maxlags(residuals)
             maxlag_list.append({
                 "File": file_name,
                 "Channel": channel,
