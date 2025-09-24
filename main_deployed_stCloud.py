@@ -747,7 +747,7 @@ class Load_Data():
             for enc in encodings_to_try:
                 try:
                     # file.seek(0)
-                    df = pd.read_csv(file, encoding=enc, skiprows=19)
+                    df = pd.read_csv(file, encoding=enc, skiprows=18)
                     return df
                 
                 except UnicodeDecodeError:
