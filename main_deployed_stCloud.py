@@ -786,7 +786,7 @@ class Load_Data():
     def oxy_data(df):
         """Retrieves oxygen channels and time."""
         
-        oxy_df = df.iloc[18:, [2, 4, 5, 6, 7]]
+        oxy_df = df.iloc[:, [2, 4, 5, 6, 7]]
         oxy_df.columns = ['time (s)', 'Ch1', 'Ch2', 'Ch3', 'Ch4']
 
         return oxy_df
