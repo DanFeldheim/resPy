@@ -1160,7 +1160,7 @@ class Analysis():
             # Calculate low and high CI for 95% CI
             ci_low = slope - t_val * stderr
             ci_high = slope + t_val * stderr
-            slope_ci = f"{ci_low:.6f} – {ci_high:.6f}"
+            slope_ci = f"{ci_low:.6f} - {ci_high:.6f}"
         
         else:
             slope_ci = "NA"
@@ -1626,7 +1626,7 @@ class Analysis():
                     if not np.isnan(ess_se):
                         ci_low_ess = slope - 1.96 * ess_se
                         ci_high_ess = slope + 1.96 * ess_se
-                        slope_ci_ess = f"{ci_low_ess:.6f} – {ci_high_ess:.6f}"
+                        slope_ci_ess = f"{ci_low_ess:.6f} - {ci_high_ess:.6f}"
     
                         # p value for ESS
                         df_ess = max(Neff - 2, 1)  # avoid invalid df
