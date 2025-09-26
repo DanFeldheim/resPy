@@ -62,10 +62,10 @@ plt.close("all")
 gc.collect()
 
 # Checks memory usage
-def get_memory_usage():
-    process = psutil.Process(os.getpid())
-    mem_info = process.memory_info()
-    return mem_info.rss / (1024 ** 2)
+# def get_memory_usage():
+    # process = psutil.Process(os.getpid())
+    # mem_info = process.memory_info()
+    # return mem_info.rss / (1024 ** 2)
 
 
 class Flow_Control():
@@ -524,8 +524,8 @@ class Setup():
             st.write('')
             st.write('')
 
-            st.subheader("Diagnostics")
-            st.metric("Memory (MB)", f"{get_memory_usage():.2f}")
+            # st.subheader("Diagnostics")
+            # st.metric("Memory (MB)", f"{get_memory_usage():.2f}")
             
             col1, col2, col3 = st.columns([1,8,1])
             with col2:
