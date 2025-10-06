@@ -462,7 +462,7 @@ class Flow_Control():
                 
                     st.markdown(f"<p style='color: Red; \
                           font-size: 24px; \
-                          margin: 0;'>Please go to Linear Regression and select files to analyze.</p>",
+                          margin: 0;'>Please go to the Linear Regression and ACF results table and select files to analyze.</p>",
                           unsafe_allow_html=True)
                         
             with tab3:    
@@ -509,7 +509,7 @@ class Flow_Control():
                     
                         st.markdown(f"<p style='color: Red; \
                               font-size: 24px; \
-                              margin: 0;'>Please go to Linear Regression and select files to analyze.</p>",
+                              margin: 0;'>Please go to Linear Regression and ACF results table and select files to analyze.</p>",
                               unsafe_allow_html=True)
                             
                             
