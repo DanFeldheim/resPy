@@ -1033,6 +1033,9 @@ class Analysis():
                 # Get filename and channel
                 filename = row["Filename"]
                 channel = row["Channel"]
+
+                st.write("Type of selected_rows:", type(selected_rows))
+                st.write(selected_rows[:3])
         
                 # Get the full dataframe for this file
                 df = edited_raw_dfs_dict[filename]
