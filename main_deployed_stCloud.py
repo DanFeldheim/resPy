@@ -1026,9 +1026,6 @@ class Analysis():
         # for further analysis
         # Dict to hold data
         subset_data = {}
-
-        st.write("Type of selected_rows:", type(selected_rows))
-        st.write(selected_rows[:3])
     
         if selected_rows is not None:
             # Loop through selected_rows df
