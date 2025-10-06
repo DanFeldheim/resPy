@@ -456,7 +456,7 @@ class Flow_Control():
             else:
                 
                 # Must select data to analyze in linear regression tab first
-                col1, col2, col3 = st.columns([1,2,1])
+                col1, col2, col3 = st.columns([1,4,1])
                 
                 with col2:
                 
@@ -503,7 +503,7 @@ class Flow_Control():
                 
                 else:
                     
-                    col1, col2, col3 = st.columns([1,2,1])
+                    col1, col2, col3 = st.columns([1,4,1])
                     
                     with col2:
                     
