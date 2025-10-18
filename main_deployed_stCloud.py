@@ -442,30 +442,26 @@ class Flow_Control():
                                   )
                 
                 st.write('')
-                
                 st.divider()
-                 
-                # View all acf, residuals, and normal distribution plots
-                st.markdown(
-                            """
-                            <div style='text-align: left; color: blue; font-size:24px;'>
-                                View ACF, Residuals, and Normal Distribution Plots
-                            </div>
-                            """,
-                            unsafe_allow_html=True
-                            )
-                    
+
+                col1, col2 = st.columns([1,1])
+
+                with col1:
+                    # View all acf, residuals, and normal distribution plots
+                    st.markdown(
+                                """
+                                <div style='text-align: left; color: blue; font-size:24px;'>
+                                    View ACF, Residuals, and Normal Distribution Plots
+                                </div>
+                                """,
+                                unsafe_allow_html=True
+                                )
+                with col2:
+                    self.about_model_diagnostics()
                 st.write("") 
                 
                 model_plots = st.button("Model Diagnostics Plots")
-                
-                st.write('')
-                col1, col2 = st.columns([1,3])
-                
-                with col1:
-                
-                    self.about_model_diagnostics()
-                
+ 
                 if model_plots:
                     
                     st.divider()
