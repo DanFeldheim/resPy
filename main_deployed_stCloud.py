@@ -1635,6 +1635,15 @@ class Analysis():
         Figures are closed immediately after display to prevent memory leaks.
         Figure titles ensure filename and channel appear in PDF.
         """
+
+        # Count total number of plots to process for progress bar
+        total_plots = sum(len(channels) for channels in all_subset_residuals.values())
+    
+        # Create a Streamlit progress bar
+        progress_bar = st.progress(0)
+        progress_text = st.empty()  # Optional text above the bar
+        plot_count = 0
+                           
         # Create a PDF to save all figures
         with PdfPages(pdf_filename) as pdf:
             for filename, channels in all_subset_residuals.items():
@@ -1665,6 +1674,12 @@ class Analysis():
                     plt.close(fig)
                     del fig, axes
                     gc.collect()
+
+                    # Update progress bar
+                    plot_count += 1
+                    progress = int(plot_count / total_plots * 100)
+                    progress_bar.progress(progress)
+                    progress_text.text(f"Processing {plot_count}/{total_plots} plots...")
                     
         # Read PDF bytes for download
         with open(pdf_filename, "rb") as f:
