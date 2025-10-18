@@ -1670,7 +1670,7 @@ class Analysis():
             pdf_bytes = f.read()
     
         st.download_button(
-                            label="Download Model Diagnostics",
+                            label="Download and Close Plots",
                             data=pdf_bytes,
                             file_name=pdf_filename,
                             mime="application/pdf"
