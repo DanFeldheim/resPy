@@ -457,14 +457,7 @@ class Flow_Control():
                     
                 st.write("") 
                 
-                # Choose button label based on state so the button will change from 
-                # show plots to clear plots
-                button_label = "Clear Plots" if st.session_state["model_plots"] else "Model Diagnostics"
-
-                # When clicked, toggle the state and rerun
-                if st.button(button_label):
-                    st.session_state["model_plots"] = not st.session_state["model_plots"]
-                    st.rerun()
+                model_plots = st.button("Model Diagnostics")
                 
                 st.write('')
                 col1, col2 = st.columns([1,3])
@@ -473,8 +466,7 @@ class Flow_Control():
                 
                     self.about_model_diagnostics()
                 
-                # If model_plots:   
-                if st.session_state["model_plots"]:
+                if model_plots:
                     
                     st.divider()
                     
