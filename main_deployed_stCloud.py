@@ -13,6 +13,7 @@ Provides options for filtering noise.
 # Imports
 import pandas as pd
 import numpy as np
+from numpy.lib.stride_tricks import sliding_window_view
 import streamlit as st
 from streamlit_option_menu import option_menu
 # Import a custom user authentication py file
