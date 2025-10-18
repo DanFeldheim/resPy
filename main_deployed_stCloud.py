@@ -1687,107 +1687,110 @@ class Analysis():
         del pdf_bytes
         gc.collect()
     
-    def compute_rolling_regression(
-                                    self,
-                                    final_x_y_valid_dict,
-                                    window_size,
-                                    step_perc=5
-                                  ):
-       
-        
+    @st.cache_data
+    def compute_rolling_regression(_self,
+                                   final_x_y_valid_dict,
+                                   window_size,
+                                   step_perc=5):
         """
-        Accepts a nested dictionary with structure:
-                {
-                    filename: {
-                        channel: [x_array, y_array]
-                    }
-                }
-                
-        Window size comes from a slider bar.
-        
+        Vectorized rolling regression using numpy.
+        Accepts nested dictionary:
+            {filename: {channel: [x_array, y_array]}}
         Returns: DataFrame of rolling regression results.
         """
-        
-        # List to store results
+    
         results = []
     
-        # Loop through x-y data dictionary
+        # Progress bar
+        progress = st.progress(0)
+        total_files = len(final_x_y_valid_dict)
+        file_idx = 0
+    
         for filename, channels in final_x_y_valid_dict.items():
-            # Loop through channels
             for channel, xy in channels.items():
-                # Get x and y data
-                x, y = xy[0], xy[1]
-                # Calculate a sliding window size
-                step = int(window_size * step_perc * 0.1)
-                # Use heap to prevent results list from growing past 4 (saves memory)
-                heap = []
+                x, y = np.array(xy[0]), np.array(xy[1])
+    
+                step = max(1, int(window_size * step_perc * 0.1))
                 
-                # Do a regression and NW correction on the data within the window size
-                for start in range(0, len(x) - window_size, step):
-                    end = start + window_size
-                    x_window = x[start:end]
-                    y_window = y[start:end]
+                if len(x) < window_size:
+                    continue
     
-                    mask = ~np.isnan(y_window)
-                    x_window, y_window = x_window[mask], y_window[mask]
-                    if len(x_window) == 0:
+                # Create rolling windows (shape: num_windows x window_size)
+                x_windows = sliding_window_view(x, window_shape=window_size)[::step]
+                y_windows = sliding_window_view(y, window_shape=window_size)[::step]
+    
+                num_windows = x_windows.shape[0]
+                heap = []
+    
+                # Vectorized OLS for each window
+                for i in range(num_windows):
+                    xi = x_windows[i]
+                    yi = y_windows[i]
+    
+                    mask = ~np.isnan(yi)
+                    xi, yi = xi[mask], yi[mask]
+                    if len(xi) < 2:
                         continue
     
-                    regression_results, residuals = self.fit_regression(x_window, y_window)
-                    
-                    if regression_results['slope'] == "NA":
-                        continue
-                    
-                    # Newey-West correction
-                    X = sm.add_constant(x_window)
-                    ols_model = sm.OLS(y_window, X).fit()
-                    residuals = ols_model.resid
+                    # OLS fit (single fit)
+                    X = sm.add_constant(xi)
+                    ols_model = sm.OLS(yi, X).fit()
+                    slope = ols_model.params[1]
+                    intercept = ols_model.params[0]
                     r2 = ols_model.rsquared
-                    lags = self.estimate_maxlags(residuals, max_lag=200)
-                    nw_model = sm.OLS(y_window, X).fit(cov_type="HAC", cov_kwds={"maxlags": lags})
+                    stderr = ols_model.bse[1]
+                    residuals = ols_model.resid
+                    ssr = np.sum(residuals**2)
+                    ci_low = slope - 1.96 * stderr
+                    ci_high = slope + 1.96 * stderr
+                    slope_ci = f"{ci_low:.6f} - {ci_high:.6f}"
+    
+                    # Newey-West robust SE
+                    lags = _self.estimate_maxlags(residuals, max_lag=200)
+                    nw_model = ols_model.get_robustcov_results(cov_type="HAC", maxlags=lags)
                     nw_slope = nw_model.params[1]
-                    nw_intercept = nw_model.params[0]
                     nw_se = nw_model.bse[1]
                     nw_pval = nw_model.pvalues[1]
                     ci_low_nw = nw_slope - 1.96 * nw_se
                     ci_high_nw = nw_slope + 1.96 * nw_se
-                    
+    
                     window_dict = {
-                                    "Filename": filename,
-                                    "Channel": channel,
-                                    "Window": f"{x_window[0]:.1f} - {x_window[-1]:.1f}",
-                                    "Start": x_window[0],
-                                    "End": x_window[-1],
-                                    "Slope": round(regression_results['slope'], 4),
-                                    "intercept": round(regression_results['intercept'], 4),
-                                    "Slope Stderr": round(regression_results['slope stderr'], 6),
-                                    "R2": round(regression_results['R2'], 4),
-                                    "Slope pval": f"{regression_results['slope pval']:.2e}",
-                                    "Slope 95% CI": regression_results['slope 95% CI'],
-                                    "SSR": round(regression_results['squared residuals'], 3),
-                                    "NW Slope 95% CI": f"{ci_low_nw:.6f} - {ci_high_nw:.6f}",
-                                    "NW pval": f"{nw_pval:.2e}",
-                                    "NW Slope Stderr": round(nw_se, 6),
-                                    "Lag": lags
-                                  }
+                        "Filename": filename,
+                        "Channel": channel,
+                        "Window": f"{xi[0]:.1f} - {xi[-1]:.1f}",
+                        "Start": xi[0],
+                        "End": xi[-1],
+                        "Slope": round(slope, 4),
+                        "intercept": round(intercept, 4),
+                        "Slope Stderr": round(stderr, 6),
+                        "R2": round(r2, 4),
+                        "Slope pval": f"{nw_model.pvalues[1]:.2e}",
+                        "Slope 95% CI": slope_ci,
+                        "SSR": round(ssr, 3),
+                        "NW Slope 95% CI": f"{ci_low_nw:.6f} - {ci_high_nw:.6f}",
+                        "NW pval": f"{nw_pval:.2e}",
+                        "NW Slope Stderr": round(nw_se, 6),
+                        "Lag": lags
+                    }
     
                     heapq.heappush(heap, (r2, window_dict))
                     if len(heap) > 4:
                         heapq.heappop(heap)
-                
-                # Sort from largest to smallest R2 for each filename
-                heap.sort(reverse=True)
     
-                # Add top 4 windows for this channel
+                # Sort top windows by R²
+                heap.sort(reverse=True)
                 results.extend([item[1] for item in heap])
-
+    
+            file_idx += 1
+            progress.progress(file_idx / total_files)
+    
         return pd.DataFrame(results)
     
     def rolling_reg_ui(self, 
-                       final_x_y_valid_dict, 
-                       results_df,
-                       base_row_height: int = 30, 
-                       max_rows: int = 20):
+                   final_x_y_valid_dict, 
+                   results_df,
+                   base_row_height: int = 30, 
+                   max_rows: int = 20):
         
         if results_df.empty:
             st.warning("Not enough data for rolling regression.")
@@ -1835,28 +1838,45 @@ class Analysis():
         # Prevent memory leak
         plt.close("all")
         
-        if isinstance(selected, pd.DataFrame):
+        if isinstance(selected, pd.DataFrame) and not selected.empty:
             sel_filename = selected["Filename"][0]
             sel_channel = selected["Channel"][0]
             start, end = selected["Start"][0], selected["End"][0]
             slope, intercept = selected["Slope"][0], selected["intercept"][0]
 
+            # Create a cache key for this channel
+            cache_key = f"rolling_trace_{sel_filename}_{sel_channel}"
+
+            # Check if we already have the main channel trace cached
+            if cache_key in st.session_state:
+                channel_trace = st.session_state[cache_key]  # Use cached trace
+            else:
+                # Optional downsampling to speed up plotting
+                x_sel, y_sel = final_x_y_valid_dict[sel_filename][sel_channel]
+                max_points = 1000
+                if len(x_sel) > max_points:
+                    idx = np.linspace(0, len(x_sel)-1, max_points).astype(int)
+                    x_plot, y_plot = x_sel[idx], y_sel[idx]
+                else:
+                    x_plot, y_plot = x_sel, y_sel
+
+                # Build the main channel trace
+                channel_trace = go.Scatter(
+                    x=x_plot,
+                    y=y_plot,
+                    mode="lines",
+                    name=sel_channel,
+                    line=dict(color="blue", width=2),
+                    opacity=0.8
+                )
+                st.session_state[cache_key] = channel_trace  # Cache the main trace for future use
+
+            # Build figure dynamically for the selected window
             fig = go.Figure()
-            colors = px.colors.qualitative.T10
-    
-            # Plot all channels for this filename
-            for idx, (channel, (x, y)) in enumerate(final_x_y_valid_dict[sel_filename].items()):
-                fig.add_trace(go.Scatter(
-                                        x=x,
-                                        y=y,
-                                        mode="lines",
-                                        name=channel,
-                                        line=dict(color=colors[idx % len(colors)], width=2),
-                                        opacity=0.8
-                                        ))
-    
-            # Highlight selected regression for the chosen channel
-            x_sel, y_sel = final_x_y_valid_dict[sel_filename][sel_channel]
+            fig.add_trace(channel_trace)  # Add main channel trace
+
+            # Highlight regression line for selected window (dynamic every time)
+            x_sel, y_sel = final_x_y_valid_dict[sel_filename][sel_channel]  # Full channel
             mask = (x_sel >= start) & (x_sel <= end)
             fig.add_trace(go.Scatter(
                                     x=x_sel[mask],
@@ -1865,13 +1885,13 @@ class Analysis():
                                     # name=f"Fit {selected['Window']}",
                                     line=dict(color="black", width=3)
                                     ))
-    
+
             # Shade regression region
             fig.add_vrect(
                         x0=start, x1=end,
                         fillcolor="black", opacity=0.1, line_width=0
                          )
-    
+
             fig.update_layout(
                             title=f"{sel_filename} — Channel {sel_channel}",
                             xaxis=dict(
@@ -1903,9 +1923,9 @@ class Analysis():
                             height=400 + 100 * ((len(final_x_y_valid_dict[sel_filename]) - 1) // 2),
                             margin=dict(l=80, r=40, t=60, b=60)
                            )
-    
+
             st.plotly_chart(fig, use_container_width=True)
-    
+            
     def download_regression(self, all_subset_regs, volume_entry_df):
         """Create a download button for regressions of the data after the user
         adjusts the x-axis."""
