@@ -457,7 +457,7 @@ class Flow_Control():
                     
                 st.write("") 
                 
-                model_plots = st.button("Model Diagnostics")
+                model_plots = st.button("Model Diagnostics Plots")
                 
                 st.write('')
                 col1, col2 = st.columns([1,3])
