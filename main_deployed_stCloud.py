@@ -1861,7 +1861,7 @@ class Analysis():
             
             # Check if we already have the main channel trace cached
             if cache_key in st.session_state:
-                channel_trace = st.session_state[cache_key]  # Use cached trace
+                channel_trace = st.session_state[cache_key] 
                 
             else:
                 # Optional downsampling to speed up plotting
@@ -1877,13 +1877,13 @@ class Analysis():
 
                 # Build the main channel trace
                 channel_trace = go.Scatter(
-                    x=x_plot,
-                    y=y_plot,
-                    mode="lines",
-                    name=sel_channel,
-                    line=dict(color="blue", width=2),
-                    opacity=0.8
-                )
+                                            x=x_plot,
+                                            y=y_plot,
+                                            mode="lines",
+                                            name=sel_channel,
+                                            line=dict(color="blue", width=2),
+                                            opacity=0.8
+                                          )
                 st.session_state[cache_key] = channel_trace  # Cache the main trace for future use
 
             # Build figure dynamically for the selected window
@@ -1891,7 +1891,7 @@ class Analysis():
             fig.add_trace(channel_trace)  
 
             # Highlight regression line for selected window (dynamic every time)
-            x_sel, y_sel = final_x_y_valid_dict[sel_filename][sel_channel]  # Full channel
+            x_sel, y_sel = final_x_y_valid_dict[sel_filename][sel_channel] 
             mask = (x_sel >= start) & (x_sel <= end)
             fig.add_trace(go.Scatter(
                                     x=x_sel[mask],
@@ -1910,30 +1910,30 @@ class Analysis():
             fig.update_layout(
                             title=f"{sel_filename} — Channel {sel_channel}",
                             xaxis=dict(
-                                title="Time (s)",
-                                title_font=dict(size=18, color="blue"),
-                                tickfont=dict(size=14, color="blue"),
-                                showline=True,
-                                linecolor="black",
-                                linewidth=2,
-                                mirror=True
-                            ),
+                                        title="Time (s)",
+                                        title_font=dict(size=18, color="blue"),
+                                        tickfont=dict(size=14, color="blue"),
+                                        showline=True,
+                                        linecolor="black",
+                                        linewidth=2,
+                                        mirror=True
+                                       ),
                             yaxis=dict(
-                                title="Signal",
-                                title_font=dict(size=18, color="blue"),
-                                tickfont=dict(size=14, color="blue"),
-                                showline=True,
-                                linecolor="black",
-                                linewidth=2,
-                                mirror=True
-                            ),
+                                        title="Signal",
+                                        title_font=dict(size=18, color="blue"),
+                                        tickfont=dict(size=14, color="blue"),
+                                        showline=True,
+                                        linecolor="black",
+                                        linewidth=2,
+                                        mirror=True
+                                       ),
                             legend=dict(
-                                title="Channels",
-                                font=dict(size=14),
-                                bgcolor="rgba(255,255,255,0.7)",
-                                bordercolor="black",
-                                borderwidth=1
-                            ),
+                                        title="Channels",
+                                        font=dict(size=14),
+                                        bgcolor="rgba(255,255,255,0.7)",
+                                        bordercolor="black",
+                                        borderwidth=1
+                                       ),
                             showlegend = False,
                             width=900,
                             height=400 + 100 * ((len(final_x_y_valid_dict[sel_filename]) - 1) // 2),
