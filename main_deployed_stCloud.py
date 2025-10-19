@@ -1848,11 +1848,7 @@ class Analysis():
                             mime="text/csv",
                           )
         
-    
         selected = grid_response["selected_rows"]
-        
-        # Prevent memory leak
-        plt.close("all")
         
         if isinstance(selected, pd.DataFrame) and not selected.empty:
             sel_filename = selected["Filename"][0]
@@ -1862,17 +1858,20 @@ class Analysis():
 
             # Create a cache key for this channel
             cache_key = f"rolling_trace_{sel_filename}_{sel_channel}"
-
+            
             # Check if we already have the main channel trace cached
             if cache_key in st.session_state:
                 channel_trace = st.session_state[cache_key]  # Use cached trace
+                
             else:
                 # Optional downsampling to speed up plotting
                 x_sel, y_sel = final_x_y_valid_dict[sel_filename][sel_channel]
-                max_points = 1000
+                max_points = 100
+                
                 if len(x_sel) > max_points:
                     idx = np.linspace(0, len(x_sel)-1, max_points).astype(int)
                     x_plot, y_plot = x_sel[idx], y_sel[idx]
+                    
                 else:
                     x_plot, y_plot = x_sel, y_sel
 
@@ -1889,7 +1888,7 @@ class Analysis():
 
             # Build figure dynamically for the selected window
             fig = go.Figure()
-            fig.add_trace(channel_trace)  # Add main channel trace
+            fig.add_trace(channel_trace)  
 
             # Highlight regression line for selected window (dynamic every time)
             x_sel, y_sel = final_x_y_valid_dict[sel_filename][sel_channel]  # Full channel
@@ -1935,6 +1934,7 @@ class Analysis():
                                 bordercolor="black",
                                 borderwidth=1
                             ),
+                            showlegend = False,
                             width=900,
                             height=400 + 100 * ((len(final_x_y_valid_dict[sel_filename]) - 1) // 2),
                             margin=dict(l=80, r=40, t=60, b=60)
