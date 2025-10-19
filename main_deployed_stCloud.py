@@ -1105,10 +1105,10 @@ class Analysis():
                 
                 with placeholder.container():
                     st.error(
-                             "Warning! Maxlags are too high for the channels highlighted.\n"
-                             "This indicates high autocorrelation in the data that yields low estimates\n"
-                             "for the standard error.\n"
-                             "This can be rectified with a Newey-West correction in the Model Diagnostics tab."
+                            "Warning! Maxlags are high for the channels highlighted.\n"
+                            "This indicates high autocorrelation in the data that yields low estimates\n"
+                            "for R2 and slope standard error.\n"
+                            "This has been corrected for using the Newey-West (NW) correction in the Model Diagnostics tab."
                              )
                         
                     # Button click sets warning to True
