@@ -111,6 +111,7 @@ class Flow_Control():
                                 "tab1_files":[],
                                 "tab2_files":[], 
                                 "warning":False,
+                                "warning_rendered":False,
                                 "uploaded_files_hash":None,
                                 "snow":False,
                                 "model_plots": False
@@ -1089,31 +1090,31 @@ class Analysis():
                               )
         
         # Show MaxLag warning in a popup window if needed
-        # Controlled by session_state['warning'] so that it only runs once
-        # per upload
-        # Try/Except catches an error if Ok isn't clicked before moving to another tab
-        try:
-            if not st.session_state["warning"] and (df["MaxLag"] > 20).any():
-                col1, col2, col3 = st.columns([1, 3, 1])
-                
-                # Use a placeholder to control exact layout
-                placeholder = col2.empty()  
-            
-                with placeholder.container():
-                    st.error(
-                            "Warning! Maxlags are too high for the channels highlighted.\n"
-                            "This indicates high autocorrelation in the data that yields low estimates\n"
-                            "for the standard error.\n"
-                            "This can be rectified with a Newey-West correction in the Model Diagnostics tab."
-                            )
-                    
-                    # Button click sets warning to True
-                    if st.button("Ok", key="maxlag_warning"):
-                        st.session_state["warning"] = True
-                        placeholder.empty()  
+        # Controlled by session_state['warning'] and ['warning_rendered'] so that it only runs once
+        # per upload and only after the first aggrid table
+        if not st.session_state["warning"] and not st.session_state["warning_rendered"] and (df["MaxLag"] > 20).any():
 
-        except st.errors.StreamlitDuplicateElementKey:
-            pass
+            # Render after the table for all files and channels is rendered
+            # and not after the tables for individual channels
+            st.session_state["warning_rendered"] = True
+            
+            col1, col2, col3 = st.columns([1, 3, 1])
+                
+            # Use a placeholder to control exact layout
+            placeholder = col2.empty()  
+            
+            with placeholder.container():
+                st.error(
+                         "Warning! Maxlags are too high for the channels highlighted.\n"
+                         "This indicates high autocorrelation in the data that yields low estimates\n"
+                         "for the standard error.\n"
+                         "This can be rectified with a Newey-West correction in the Model Diagnostics tab."
+                         )
+                    
+                # Button click sets warning to True
+                if st.button("Ok", key="maxlag_warning"):
+                    st.session_state["warning"] = True
+                    placeholder.empty()  
         
         # Return only the rows selected by the user
         selected_rows = grid_response["selected_rows"]
