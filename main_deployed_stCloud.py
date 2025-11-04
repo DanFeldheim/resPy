@@ -1313,8 +1313,15 @@ class Analysis():
             ax.set_xlabel("Time (s)")
             ax.set_ylabel("Signal")
             ax.set_title(f"Raw: {file_name}")
-            ax.legend()
+
+             # Add legend to the right-hand side
+            ax.legend(
+                      loc="center left",
+                      bbox_to_anchor=(1, 0.5),
+                      frameon=False
+                     )
             ax.grid(True)
+            plt.tight_layout()
             st.pyplot(fig_raw, clear_figure=False)
             all_plots[f"{file_name}_raw"] = fig_raw
     
