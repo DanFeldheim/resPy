@@ -2130,13 +2130,13 @@ if __name__ == '__main__':
     # Set up session_state variables
     
     # Disable directory when deploying to cloud
-    directory = '/Users/danfeldheim/Documents/mote_o2_app/deployed_versions/'
+    # directory = '/Users/danfeldheim/Documents/mote_o2_app/deployed_versions/'
         
     # Use this for cloud
-    # st.session_state['logo'] = 'mote_logo.png'
+    st.session_state['logo'] = 'mote_logo.png'
     
     # Use this for local machine
-    st.session_state['logo'] = directory + 'mote_logo.png'
+    # st.session_state['logo'] = directory + 'mote_logo.png'
         
     # Load image for favicon
     logo_img = Image.open(st.session_state['logo'])
