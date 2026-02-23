@@ -1242,8 +1242,8 @@ class Analysis():
                                         if(params.value != null && params.colDef.field == 'SSR' && params.value > 1000) {
                                             return {'backgroundColor':'yellow', 'color':'black'};
                                         }
-                                        # if(params.value != null && params.colDef.field == 'MaxLag' && params.value > 20) {
-                                            # return {'backgroundColor':'yellow', 'color':'black'};
+                                        if(params.value != null && params.colDef.field == 'MaxLag' && params.value > 20) {
+                                            return {'backgroundColor':'yellow', 'color':'black'};
                                         }
                                         return null;
                                     };
