@@ -1669,7 +1669,7 @@ class Analysis():
             # Calculate low and high CI for 95% CI
             ci_low = slope - t_val * stderr
             ci_high = slope + t_val * stderr
-            slope_ci = f"{ci_low:.4g}–{ci_high:.4g}"
+            slope_ci = f"{ci_low:.4g} – {ci_high:.4g}"
         
         else:
             slope_ci = "NA"
