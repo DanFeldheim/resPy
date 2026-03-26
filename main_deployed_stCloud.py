@@ -1398,10 +1398,10 @@ class Analysis():
                 
                 with placeholder.container():
                     st.error(
-                            "Warning! MaxLag is high for the channels highlighted.\n"
-                            "This indicates high autocorrelation in the data that yields low estimates\n"
-                            "for R2 and slope standard error.\n"
-                            "This has been corrected for using the Newey-West (NW) correction in the Model Diagnostics tab."
+                             "Warning! Check for runs with MaxLag >50, which indicates high autocorrelation in the data.  \n"
+                             "Autocorrelation does not affect the slope, but causes the slope standard error to be underestimated.  \n"
+                             "Any comparisons that rely on these standard errors may lead to incorrect conclusions.  \n"
+                             "Corrected standard errors can be found in the Model Diagnostics tab (see Newey-West (NW))."
                              )
                         
                     # Button click sets warning to True
