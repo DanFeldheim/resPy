@@ -2702,6 +2702,7 @@ class About():
                         BASE_DIR + "Slide3.png",
                         BASE_DIR + "Slide4.png",
                         BASE_DIR + "Slide5.png",
+                        BASE_DIR + "Slide6.png",
                       ]
 
         for slide in slide_files:
