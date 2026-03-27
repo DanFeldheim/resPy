@@ -2089,6 +2089,10 @@ class Analysis():
                                    window_size,
                                    step_perc=5):
         """
+        Calculates slopes and summary stats for sliding windows across the
+        data. If x-axis was changed in Linear Regression tab, this only uses
+        the adjusted data.
+        
         Vectorized rolling regression using numpy.
         Accepts nested dictionary:
             {filename: {channel: [x_array, y_array]}}
@@ -2525,6 +2529,10 @@ class Analysis():
            ) -> pd.DataFrame:
         
         """
+        Calculates most common slopes for sliding windows across the
+        data. If x-axis was changed in Linear Regression tab, this only uses
+        the adjusted data.
+        
         Workflow:
           Step 1: Compute KDE-based summary (one row per Filename x Channel)
           Step 2: Display the table in Streamlit
