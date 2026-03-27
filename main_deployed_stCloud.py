@@ -2678,10 +2678,10 @@ class About():
         
         slide_files = [
                         BASE_DIR + "Slide1.png",
-                        BASE_DIR + "/Slide2.png",
-                        BASE_DIR + "/Slide3.png",
-                        BASE_DIR + "/Slide4.png",
-                        BASE_DIR + "/Slide5.png",
+                        BASE_DIR + "Slide2.png",
+                        BASE_DIR + "Slide3.png",
+                        BASE_DIR + "Slide4.png",
+                        BASE_DIR + "Slide5.png",
                       ]
 
         for slide in slide_files:
