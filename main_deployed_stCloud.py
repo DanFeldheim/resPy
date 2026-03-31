@@ -2823,10 +2823,10 @@ if __name__ == '__main__':
     logo_img = Image.open(st.session_state['logo'])
     
     # Use this for local machine
-    if 'logo' not in st.session_state:
-        st.session_state['logo'] = BASE_DIR + '/mote_logo.png'
+    # if 'logo' not in st.session_state:
+        # st.session_state['logo'] = BASE_DIR + '/mote_logo.png'
         
-    logo_img = BASE_DIR + '/mote_logo.png'
+    # logo_img = BASE_DIR + '/mote_logo.png'
         
     # Page config
     st.set_page_config(layout = "wide", 
