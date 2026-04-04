@@ -742,7 +742,7 @@ class Flow_Control():
                         <ul>
                         <li><b>Residuals Plots</b> → Residuals should be scattered randomly around the 0 line.<br>
                         A non-random pattern indicates model assumptions may be violated, such as autocorrelation, 
-                        heteroskedasticity, or nonlinearity.<br>
+                        heteroskedasticity, or nonlinearity.</li>
                         
                         In time-series experiments, autocorrelation often arises because the system has <b>memory</b> 
                         (e.g., slow mixing or sensor response).<br>
@@ -767,10 +767,10 @@ class Flow_Control():
                         <h3>📈 Signal Processing</h3>
                         <ul>
                         <li><b>Correlation Correction</b> → When residuals are correlated, error bars and p-values 
-                        become too optimistic.<br>
+                        become too optimistic.</li>
                     
-                        Newey–West corrects this by widening uncertainty estimates.<br>
-                        Effective Sample Size (ESS) reduces the number of independent data points.<br>
+                        Newey–West corrects this by widening uncertainty estimates like SE and 95% CI.<br>
+                        Effective Sample Size (ESS) is the number of independent data points.<br>
                     
                         ESS is best used as a diagnostic (small ESS = sluggish system), while Newey–West provides 
                         corrected statistics for reporting.</li>
