@@ -739,12 +739,16 @@ class Flow_Control():
                         """
                         ### 🎛️ Noise Analysis
                         - **Residuals Plots** → Residuals should be scattered randomly around the 0 line.
-                        A non-random pattern in the residuals indicates autocorrelation or heteroskedasticity.
-                        This violates one of the assumptions of linear regression and indicates sluggishness
-                        in the experiment-slow mixing or sensor response relative to the sampling rate. 
-                        A consequence of residual correlation is that standard errors, confidence intervals, 
-                        and p-values are underestimated. 
-                        These values can be corrected with a Newey-West correction (see Signal Processing).
+                        A non-random pattern in the residuals indicates that the linear model assumptions may be violated.
+                        Depending on the pattern, this can reflect autocorrelation (temporal dependence), heteroskedasticity 
+                        (changing variance), or model misspecification (e.g., nonlinearity).
+
+                        In time-series data like these experiments, autocorrelation often arises because the system has 
+                        memory—for example, due to slow mixing or sensor response relative to the sampling rate.
+
+                        A key consequence of autocorrelation is that standard errors, confidence intervals, and p-values 
+                        from ordinary linear regression are typically underestimated. These can be corrected using methods 
+                        such as the Newey–West adjustment (see Signal Processing).
                         - **Autocorrelation Function Plots** → Shows the strength and direction of the 
                         correlation from -1 to 1 with 95% CI. The x axis represents the correlation of
                         a data point with other points n "lags" or time periods preceding that point. Any
