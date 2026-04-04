@@ -2809,11 +2809,15 @@ class About():
                 
                 # Use this for cloud
                 workflow_files = [BASE_DIR + "Slide5.png",
-                                  BASE_DIR + "Slide6.png"]
+                                  BASE_DIR + "Slide6.png",
+                                  BASE_DIR + "Slide7.png",
+                                  BASE_DIR + "Slide8.png"]
                 
                 # Use this for local host
                 # workflow_files = [BASE_DIR + "/Slide5.png",
-                #                   BASE_DIR + "/Slide6.png"]
+                #                   BASE_DIR + "/Slide6.png",
+                                    BASE_DIR + "Slide7.png",
+                                    BASE_DIR + "Slide8.png"]
                 
 
                 for slide in workflow_files:
