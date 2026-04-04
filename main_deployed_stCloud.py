@@ -737,62 +737,51 @@ class Flow_Control():
             
             st.markdown(
                         """
-                        ### 🎛️ Noise Analysis
-                        - **Residuals Plots** → Residuals should be scattered randomly around the 0 line.
-                        A non-random pattern in the residuals indicates that the linear model assumptions may be violated.
-                        Depending on the pattern, this can reflect autocorrelation (temporal dependence), heteroskedasticity 
-                        (changing variance), or model misspecification (e.g., nonlinearity).
-
-                        In time-series data like these experiments, autocorrelation often arises because the system has 
-                        memory—for example, due to slow mixing or sensor response relative to the sampling rate.
-
-                        A key consequence of autocorrelation is that standard errors, confidence intervals, and p-values 
-                        from ordinary linear regression are typically underestimated. These can be corrected using methods 
-                        such as the Newey–West adjustment (see Signal Processing).
-                        - **Autocorrelation Function Plots** → Shows how similar each measurement is to earlier measurements.
-                        The x-axis (lag) tells you how many time steps back you are comparing (e.g., 1 step earlier, 2 steps earlier). 
-                        The y-axis shows how similar those points are, from -1 (opposite) to +1 (very similar).
-
-                        If nearby points are strongly similar, it means the system has memory—each measurement still contains 
-                        some information from previous ones (e.g., due to mixing or sensor response).
-
-                        A slow decrease in the bars suggests lingering effects from earlier measurements. Alternating bars 
-                        (up and down) suggest a repeating or oscillating pattern in the system.
-
-                        ### How to interpret the pattern:
-
-                        **Slowly decreasing bars (all positive):**  
-                        Measurements remain similar over time, indicating the system has **memory** (e.g., slow mixing 
-                        or sensor response).  
-                        👉 The overall slope is often still reasonable, but the data are not independent, so uncertainty 
-                        (SE, confidence intervals) is likely underestimated and should be corrected.
-
-                        **Alternating up-and-down bars:**  
-                        Indicates a **repeating or oscillating pattern** in the system.  
-                        👉 The process may not be truly linear over this window, so the slope can depend on where the 
-                        window is placed and should be interpreted with caution.
-
-                        **Bars near zero after lag 0:**  
-                        Measurements are mostly independent.  
-                        👉 Standard regression assumptions are more valid, and uncertainty estimates are more reliable.
-                        ---
-                        - **Normality Tests** → The histogram of residuals should be normally distributed.
-                        This is another fundamental assumption for linear regression. 
-                        ---
+                        <div style="text-align: left; line-height: 1.6;">
+                        <h3>🎛️ Noise Analysis</h3>
+                        <ul>
+                        <li><b>Residuals Plots</b> → Residuals should be scattered randomly around the 0 line.<br>
+                        A non-random pattern indicates model assumptions may be violated, such as autocorrelation, 
+                        heteroskedasticity, or nonlinearity.<br><br>
                         
-                        ### 📈 Signal Processing
-                        - **Correlation Correction** → When residuals are correlated, the usual error bars 
-                        and p-values become too optimistic. The Newey-West method corrects this by widening 
-                        the error bars so they better reflect reality, and it should be used when reporting 
-                        slopes, confidence intervals, and p-values. The Effective Sample Size (ESS) method 
-                        takes a different approach: it reduces the number of “independent” data points to 
-                        account for correlation, then recalculates the error bars and p-values. ESS is best 
-                        treated as a diagnostic — a small ESS suggests sluggish or delayed responses in 
-                        the experiment — while Newey-West provides the corrected statistics you should 
-                        use for inference calculations such as experimental differences.
+                        In time-series experiments, autocorrelation often arises because the system has <b>memory</b> 
+                        (e.g., slow mixing or sensor response).<br><br>
+                    
+                        A key consequence is that standard errors, confidence intervals, and p-values are underestimated. 
+                        These can be corrected using methods such as Newey–West.</li>
+                        <br>
+                    
+                        <li><b>Autocorrelation Function (ACF) Plots</b> → Shows how similar each measurement is to earlier 
+                        measurements.<br>
+                        Lag = how far back you compare. Values range from -1 (opposite) to +1 (very similar).<br><br>
+                        If nearby points are similar, the system has <b>memory</b>.<br><br>
+                    
+                        <b>Interpretation:</b><br>
+                        • <b>Slow decay:</b> memory in the system → slope often OK, but uncertainty underestimated<br>
+                        • <b>Alternating bars:</b> oscillation → slope may depend on window placement<br>
+                        • <b>Near zero:</b> independent data → standard statistics valid
+                        </li>
+                        <br>
+                    
+                        <li><b>Normality Tests</b> → Residuals should be roughly normally distributed.<br>
+                        Major deviations suggest outliers or model issues.</li>
+                        </ul>
+                        <hr>
+                        <h3>📈 Signal Processing</h3>
+                        <ul>
+                        <li><b>Correlation Correction</b> → When residuals are correlated, error bars and p-values 
+                        become too optimistic.<br><br>
+                    
+                        Newey–West corrects this by widening uncertainty estimates.<br>
+                        Effective Sample Size (ESS) reduces the number of independent data points.<br><br>
+                    
+                        ESS is best used as a diagnostic (small ESS = sluggish system), while Newey–West provides 
+                        corrected statistics for reporting.</li>
+                        </ul>
+                        </div>
                         """,
-                        unsafe_allow_html=True
-                        )  
+                            unsafe_allow_html=True
+                        )
             
     def noise_calc(self, residuals, regress, duration_s):
         """Compute RMSE, Noise %, RSE %, and Zmax for a fitted line window."""
