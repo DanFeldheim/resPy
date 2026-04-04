@@ -749,13 +749,35 @@ class Flow_Control():
                         A key consequence of autocorrelation is that standard errors, confidence intervals, and p-values 
                         from ordinary linear regression are typically underestimated. These can be corrected using methods 
                         such as the Newey–West adjustment (see Signal Processing).
-                        - **Autocorrelation Function Plots** → Shows the strength and direction of the 
-                        correlation from -1 to 1 with 95% CI. The x axis represents the correlation of
-                        a data point with other points n "lags" or time periods preceding that point. Any
-                        bar above the 95% CI regions is statistically autocorrelated.
+                        - **Autocorrelation Function Plots** → Shows how similar each measurement is to earlier measurements.
+                        The x-axis (lag) tells you how many time steps back you are comparing (e.g., 1 step earlier, 2 steps earlier). 
+                        The y-axis shows how similar those points are, from -1 (opposite) to +1 (very similar).
+
+                        If nearby points are strongly similar, it means the system has memory—each measurement still contains 
+                        some information from previous ones (e.g., due to mixing or sensor response).
+
+                        A slow decrease in the bars suggests lingering effects from earlier measurements. Alternating bars 
+                        (up and down) suggest a repeating or oscillating pattern in the system.
+
+                        ### How to interpret the pattern:
+
+                        **Slowly decreasing bars (all positive):**  
+                        Measurements remain similar over time, indicating the system has **memory** (e.g., slow mixing 
+                        or sensor response).  
+                        👉 The overall slope is often still reasonable, but the data are not independent, so uncertainty 
+                        (SE, confidence intervals) is likely underestimated and should be corrected.
+
+                        **Alternating up-and-down bars:**  
+                        Indicates a **repeating or oscillating pattern** in the system.  
+                        👉 The process may not be truly linear over this window, so the slope can depend on where the 
+                        window is placed and should be interpreted with caution.
+
+                        **Bars near zero after lag 0:**  
+                        Measurements are mostly independent.  
+                        👉 Standard regression assumptions are more valid, and uncertainty estimates are more reliable.
+                        ---
                         - **Normality Tests** → The histogram of residuals should be normally distributed.
                         This is another fundamental assumption for linear regression. 
-                        
                         ---
                         
                         ### 📈 Signal Processing
