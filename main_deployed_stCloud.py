@@ -749,7 +749,6 @@ class Flow_Control():
                     
                         A key consequence is that standard errors, confidence intervals, and p-values are underestimated. 
                         These can be corrected using methods such as Newey–West.</li>
-                        <br>
                     
                         <li><b>Autocorrelation Function (ACF) Plots</b> → Shows how similar each measurement is to earlier 
                         measurements.<br>
