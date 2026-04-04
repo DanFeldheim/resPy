@@ -759,8 +759,6 @@ class Flow_Control():
                         • <b>Slow decay:</b> memory in the system → slope often OK, but SE underestimated<br>
                         • <b>Alternating bars:</b> oscillation → slope may depend on window placement<br>
                         • <b>Near zero:</b> independent data → standard statistics valid
-                        </li>
-                        <br>
                     
                         <li><b>Normality Tests</b> → Residuals should be roughly normally distributed.<br>
                         Major deviations suggest outliers or model issues.</li>
@@ -769,10 +767,10 @@ class Flow_Control():
                         <h3>📈 Signal Processing</h3>
                         <ul>
                         <li><b>Correlation Correction</b> → When residuals are correlated, error bars and p-values 
-                        become too optimistic.<br><br>
+                        become too optimistic.<br>
                     
                         Newey–West corrects this by widening uncertainty estimates.<br>
-                        Effective Sample Size (ESS) reduces the number of independent data points.<br><br>
+                        Effective Sample Size (ESS) reduces the number of independent data points.<br>
                     
                         ESS is best used as a diagnostic (small ESS = sluggish system), while Newey–West provides 
                         corrected statistics for reporting.</li>
