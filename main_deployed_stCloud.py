@@ -742,10 +742,10 @@ class Flow_Control():
                         <ul>
                         <li><b>Residuals Plots</b> → Residuals should be scattered randomly around the 0 line.<br>
                         A non-random pattern indicates model assumptions may be violated, such as autocorrelation, 
-                        heteroskedasticity, or nonlinearity.<br><br>
+                        heteroskedasticity, or nonlinearity.<br>
                         
                         In time-series experiments, autocorrelation often arises because the system has <b>memory</b> 
-                        (e.g., slow mixing or sensor response).<br><br>
+                        (e.g., slow mixing or sensor response).<br>
                     
                         A key consequence is that standard errors, confidence intervals, and p-values are underestimated. 
                         These can be corrected using methods such as Newey–West.</li>
@@ -754,10 +754,10 @@ class Flow_Control():
                         <li><b>Autocorrelation Function (ACF) Plots</b> → Shows how similar each measurement is to earlier 
                         measurements.<br>
                         Lag = how far back you compare. Values range from -1 (opposite) to +1 (very similar).<br><br>
-                        If nearby points are similar, the system has <b>memory</b>.<br><br>
+                        If nearby points are similar, the system has <b>memory</b>.<br>
                     
                         <b>Interpretation:</b><br>
-                        • <b>Slow decay:</b> memory in the system → slope often OK, but uncertainty underestimated<br>
+                        • <b>Slow decay:</b> memory in the system → slope often OK, but SE underestimated<br>
                         • <b>Alternating bars:</b> oscillation → slope may depend on window placement<br>
                         • <b>Near zero:</b> independent data → standard statistics valid
                         </li>
