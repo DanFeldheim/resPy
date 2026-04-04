@@ -752,12 +752,14 @@ class Flow_Control():
                     
                         <li><b>Autocorrelation Function (ACF) Plots</b> → Shows how similar each measurement is to earlier 
                         measurements.<br>
-                        Lag = how far back you compare. Values range from -1 (opposite) to +1 (very similar).<br><br>
+                        Lag = how far back points are compared in time.<br> 
+                        y-axis values range from -1 (negatively correlated) to +1 (positively correlated).<br><br>
                         If nearby points are similar, the system has <b>memory</b>.<br>
                     
                         <b>Interpretation:</b><br>
-                        • <b>Slow decay:</b> memory in the system → slope often OK, but SE underestimated<br>
-                        • <b>Alternating bars:</b> oscillation → slope may depend on window placement<br>
+                        • <b>Slow, smooth decrease in height:</b> Substantial memory in the system → slope often accurate, 
+                        but SE underestimated. Use Newey-West Corrected SE for inferential statistics<br>
+                        • <b>Oscillating bars:</b> warning! → slope may not be accurate<br>
                         • <b>Near zero:</b> independent data → standard statistics valid
                     
                         <li><b>Normality Tests</b> → Residuals should be roughly normally distributed.<br>
