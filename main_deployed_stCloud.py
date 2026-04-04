@@ -767,7 +767,7 @@ class Flow_Control():
                         <h3>📈 Signal Processing</h3>
                         <ul>
                         <li><b>Correlation Correction</b> → When residuals are correlated, error bars and p-values 
-                        become too optimistic.<br>
+                        become too optimistic.<br><br>
                     
                         Newey–West corrects this by widening uncertainty estimates like SE and 95% CI.<br>
                         Effective Sample Size (ESS) is the number of independent data points.<br>
