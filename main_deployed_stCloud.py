@@ -1725,7 +1725,7 @@ class Analysis():
     
         ci_low = slope - z * se_slope
         ci_high = slope + z * se_slope
-        nw_slope_ci = f"{ci_low:.4g}–{ci_high:.4g}"
+        nw_slope_ci = f"{ci_low:.4g} – {ci_high:.4g}"
     
         return {
                 "Corrected slope stderr (umol/L/s)": se_slope,
