@@ -1386,7 +1386,7 @@ class Analysis():
                             "(e.g., bubbles, blocked flow).\n"
                             "This can cause underestimated standard errors and overly narrow 95% confidence intervals, "
                             "making results appear more precise than they are.\n"
-                            "Use the adjusted SE and adjusted 95% CI in the Adjusted Results Table for error analysis."
+                            "Use the lag-adjusted SE and lag-adjusted 95% CI in the Final Results Table for error analysis."
                             )
                         
                     # Button click sets warning to True
