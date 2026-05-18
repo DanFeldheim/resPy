@@ -582,7 +582,7 @@ class Flow_Control():
                                                 "Select rolling regression window size.",
                                                 min_value=150,
                                                 max_value=750,
-                                                value=400,  
+                                                value=600,  
                                                 step=20,
                                                 # Dynamic key
                                                 key=f"win_size_{filename}"  
