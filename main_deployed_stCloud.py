@@ -3289,9 +3289,7 @@ class About():
                  
 # Run 
 if __name__ == '__main__':
-    
-    # Set up session_state variables
-    
+   
     # Get the path relative to the current file (inside Docker container)
     BASE_DIR = os.path.dirname(__file__)
         
