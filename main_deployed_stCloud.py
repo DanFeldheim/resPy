@@ -3291,7 +3291,7 @@ class About():
 if __name__ == '__main__':
    
     # Get the path relative to the current file (inside Docker container)
-    BASE_DIR = os.path.dirname(__file__)
+    # BASE_DIR = os.path.dirname(__file__)
         
     # Use this for cloud
     st.session_state['logo'] = 'mote_logo.png'
