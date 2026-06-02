@@ -3298,6 +3298,8 @@ if __name__ == '__main__':
     
     # Load image for favicon
     logo_img = Image.open(st.session_state['logo'])
+
+    favicon_img = Image.open(os.path.join(BASE_DIR, 'mote_logo.png')).resize((32, 32))
     
     # Use this for local machine
     # if 'logo' not in st.session_state:
@@ -3308,7 +3310,8 @@ if __name__ == '__main__':
     # Page config
     st.set_page_config(layout = "wide", 
                        page_title = 'Mote', 
-                       page_icon = logo_img,
+                       # page_icon = logo_img,
+                       page_icon = favicon_img,
                        initial_sidebar_state="auto", 
                        menu_items = None)
     
