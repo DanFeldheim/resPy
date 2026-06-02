@@ -3293,24 +3293,25 @@ if __name__ == '__main__':
     # Get the path relative to the current file (inside Docker container)
     BASE_DIR = os.path.dirname(__file__)
         
-    # Use this for cloud
-    st.session_state['logo'] = 'mote_logo.png'
+    # Use this for cloud-Renders image in header
+    st.session_state['logo'] = os.path.join(BASE_DIR, 'mote_logo.png')
     
-    # Load image for favicon
+    # Load image for header
     logo_img = Image.open(st.session_state['logo'])
 
+    # Load smaller version of image for favicon
     favicon_img = Image.open(os.path.join(BASE_DIR, 'mote_logo.png')).resize((32, 32))
     
     # Use this for local machine
     # if 'logo' not in st.session_state:
-    #     st.session_state['logo'] = BASE_DIR + '/mote_logo.png'
+    #     st.session_state['logo'] = os.path.join(BASE_DIR, 'mote_logo.png')
         
-    # logo_img = BASE_DIR + '/mote_logo.png'
+    # logo_img = Image.open(st.session_state['logo'])
+    # favicon_img = logo_img.resize((32, 32))
         
     # Page config
     st.set_page_config(layout = "wide", 
                        page_title = 'Mote', 
-                       # page_icon = logo_img,
                        page_icon = favicon_img,
                        initial_sidebar_state="auto", 
                        menu_items = None)
