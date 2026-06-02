@@ -38,6 +38,21 @@ from scipy.stats import gaussian_kde
 from PIL import Image
 import math
 
+# Get the path relative to the current file
+BASE_DIR = os.path.dirname(__file__)
+
+# Load image for favicon
+logo_img = Image.open(os.path.join(BASE_DIR, 'mote_logo.png'))
+
+# Page config
+st.set_page_config(
+    layout="wide",
+    page_title="Mote",
+    page_icon=logo_img,
+    initial_sidebar_state="auto",
+    menu_items=None
+)
+
 
 # Clean up any leftover figures or memory at the start of each run
 plt.close("all")
@@ -3291,13 +3306,13 @@ class About():
 if __name__ == '__main__':
    
     # Get the path relative to the current file (inside Docker container)
-    BASE_DIR = os.path.dirname(__file__)
+    # BASE_DIR = os.path.dirname(__file__)
         
     # Use this for cloud
     st.session_state['logo'] = 'mote_logo.png'
     
     # Load image for favicon
-    logo_img = Image.open(st.session_state['logo'])
+    # logo_img = Image.open(st.session_state['logo'])
     
     # Use this for local machine
     # if 'logo' not in st.session_state:
@@ -3306,11 +3321,11 @@ if __name__ == '__main__':
     # logo_img = BASE_DIR + '/mote_logo.png'
         
     # Page config
-    st.set_page_config(layout = "wide", 
-                       page_title = 'Mote', 
-                       page_icon = logo_img,
-                       initial_sidebar_state="auto", 
-                       menu_items = None)
+    # st.set_page_config(layout = "wide", 
+                       # page_title = 'Mote', 
+                       # page_icon = logo_img,
+                       # initial_sidebar_state="auto", 
+                       # menu_items = None)
     
     
     # Call Flow_Control class that makes all calls to other classes and methods
