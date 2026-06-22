@@ -745,10 +745,10 @@ class Flow_Control():
         if not isinstance(slope, (float, int)) or not np.isfinite(slope):
             return rmse, noise_percent, rse_percent, zmax
     
-        duration_s = float(duration_s)
-    
+        duration_hr = float(duration_s) / 3600.0
+
         # Noise % = RMSE / total signal change across the window
-        delta_y = abs(slope) * duration_s
+        delta_y = abs(slope) * duration_hr
         
         if np.isfinite(delta_y) and delta_y > 0:
             noise_percent = 100.0 * rmse / delta_y if np.isfinite(rmse) else np.nan
