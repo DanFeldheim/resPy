@@ -1427,16 +1427,27 @@ class Analysis():
         
         results_key = hashlib.md5(pd.util.hash_pandas_object(df, index=True).values).hexdigest()[:8]
         
+        # grid_response = AgGrid(
+                                # df,
+                                # gridOptions=grid_options,
+                                # allow_unsafe_jscode=True,
+                                # update_mode=GridUpdateMode.SELECTION_CHANGED,
+                                # fit_columns_on_grid_load=True,
+                                # height=height,
+                                # key=f"{grid_key}_{results_key}",
+                                # reload_data=True
+                              # )
+
         grid_response = AgGrid(
                                 df,
                                 gridOptions=grid_options,
                                 allow_unsafe_jscode=True,
-                                update_mode=GridUpdateMode.SELECTION_CHANGED,
                                 fit_columns_on_grid_load=True,
                                 height=height,
                                 key=f"{grid_key}_{results_key}",
-                                reload_data=True
-                              )
+                                update_on=["selectionChanged"]
+                             )
+                    
         
         # Show MaxLag warning in a popup window if needed
         # Controlled by session_state['warning'] and ['warning_rendered'] so that it only runs once
