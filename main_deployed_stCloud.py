@@ -1426,9 +1426,9 @@ class Analysis():
         # Narrow certain columns
         gb.configure_column(
                             "slope 95% CI (umol/L/hr)",
-                            width=115,
-                            minWidth=85,
-                            maxWidth=150
+                            width=150,
+                            minWidth=130,
+                            maxWidth=175
                            )
                     
         gb.configure_column(
