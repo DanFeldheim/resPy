@@ -1423,29 +1423,35 @@ class Analysis():
         gb.configure_column("lower_ci", hide=True)
         gb.configure_column("upper_ci", hide=True)
 
-
         # Narrow the columns to the right of slope % RSE
         gb.configure_column(
-            "Noise %",
-            width=95,
-            minWidth=85,
-            maxWidth=110
-        )
+                            "slope % RSE",
+                            width=95,
+                            minWidth=85,
+                            maxWidth=110
+                           )
+                    
+        gb.configure_column(
+                            "Noise %",
+                            width=95,
+                            minWidth=85,
+                            maxWidth=110
+                           )
         
         gb.configure_column(
-            "Spike Score",
-            width=105,
-            minWidth=95,
-            maxWidth=120
-        )
+                            "Spike Score",
+                            width=105,
+                            minWidth=95,
+                            maxWidth=120
+                           )
         
         gb.configure_column(
-            "System Lag (Pts)",
-            width=125,
-            minWidth=110,
-            maxWidth=140
-        )
-
+                            "System Lag (Pts)",
+                            width=125,
+                            minWidth=110,
+                            maxWidth=140
+                           )
+                    
         grid_options = gb.build()
         
         results_key = hashlib.md5(pd.util.hash_pandas_object(df, index=True).values).hexdigest()[:8]
