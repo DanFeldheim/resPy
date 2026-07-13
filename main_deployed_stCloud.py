@@ -1428,7 +1428,7 @@ class Analysis():
                             "slope 95% CI (umol/L/hr)",
                             width=105,
                             minWidth=85,
-                            maxWidth=110
+                            maxWidth=120
                            )
                     
         gb.configure_column(
