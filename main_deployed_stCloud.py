@@ -2609,7 +2609,7 @@ class Analysis():
                         "intercept",
                         "SSR",
                        ]
-        #-----------------------------------------------------
+                           
         # Build AgGrid options
         gb = GridOptionsBuilder.from_dataframe(df_show)
         
@@ -2622,71 +2622,112 @@ class Analysis():
         # Enable column selection sidebar
         gb.configure_selection("single", use_checkbox=True)
         gb.configure_side_bar(columns_panel=True)
-        
-        # first = df_show.columns[0]
-        # second = df_show.columns[1]
-        
-        # gb.configure_column(first, width=220, minWidth=180)
-        # gb.configure_column(second, width=140, minWidth=120)
-        # grid_options = gb.build()
-
+       
         # Default settings must be configured before gb.build()
         gb.configure_default_column(
-            resizable=True,
-            width=110,
-            minWidth=80,
-            maxWidth=150
-        )
+                                    resizable=True,
+                                    width=110,
+                                    minWidth=80,
+                                    maxWidth=150
+                                   )
         
-        # Keep Filename wider
+        # Specific column widths
         gb.configure_column(
-            "Filename",
-            width=220,
-            minWidth=180,
-            maxWidth=280
-        )
-        
-        # Narrow the remaining columns
-        gb.configure_column(
-            "Channel",
-            width=90,
-            minWidth=80,
-            maxWidth=110
-        )
+                            "Filename",
+                            width=220,
+                            minWidth=180,
+                            maxWidth=300
+                           )
         
         gb.configure_column(
-            "Start",
-            width=95,
-            minWidth=85,
-            maxWidth=110
-        )
+                            "Coral ID",
+                            width=120,
+                            minWidth=100,
+                            maxWidth=150
+                           )
         
         gb.configure_column(
-            "End",
-            width=95,
-            minWidth=85,
-            maxWidth=110
-        )
+                            "Channel",
+                            width=90,
+                            minWidth=80,
+                            maxWidth=110
+                           )
         
         gb.configure_column(
-            "Raw slope (umol/L/hr)",
-            width=145,
-            minWidth=125,
-            maxWidth=165
-        )
+                            "Window",
+                            width=130,
+                            minWidth=110,
+                            maxWidth=150
+                           )
         
         gb.configure_column(
-            "R2",
-            width=80,
-            minWidth=70,
-            maxWidth=95
-        )
+                            "Start",
+                            width=90,
+                            minWidth=80,
+                            maxWidth=105
+                           )
         
-        # Build options only after all configuration is complete
+        gb.configure_column(
+                            "End",
+                            width=90,
+                            minWidth=80,
+                            maxWidth=105
+                           )
+        
+        gb.configure_column(
+                            "Raw slope (umol/L/hr)",
+                            width=145,
+                            minWidth=125,
+                            maxWidth=170
+                           )
+        
+        gb.configure_column(
+                            "R2",
+                            width=75,
+                            minWidth=65,
+                            maxWidth=90
+                           )
+        
+        gb.configure_column(
+                            "Raw slope SE (umol/L/hr)",
+                            width=155,
+                            minWidth=135,
+                            maxWidth=180
+                           )
+        
+        gb.configure_column(
+                            "Raw slope %RSE",
+                            width=120,
+                            minWidth=105,
+                            maxWidth=140
+                           )
+        
+        gb.configure_column(
+                            "Raw slope 95% CI (umol/L/hr)",
+                            width=180,
+                            minWidth=155,
+                            maxWidth=210
+                           )
+        
+        # These are hidden, but sizing them is harmless
+        gb.configure_column(
+                            "intercept",
+                            width=110,
+                            minWidth=95,
+                            maxWidth=130,
+                            hide=True
+                           )
+        
+        gb.configure_column(
+                            "SSR",
+                            width=90,
+                            minWidth=80,
+                            maxWidth=110,
+                            hide=True
+                           )
+
+        # Build options after all configuration is complete
         grid_options = gb.build()
-       
-        # also good as a general safety net:
-        # gb.configure_default_column(resizable=True, minWidth=110)
         
         # Remove filters panel manually from the built options
         if "sideBar" in grid_options and "toolPanels" in grid_options["sideBar"]:
@@ -2710,18 +2751,6 @@ class Analysis():
         visible_rows = min(num_rows, max_rows)
         height = (visible_rows + 1) * base_row_height
     
-        # grid_response = AgGrid(
-                                # df_show,
-                                # gridOptions=grid_options,
-                                # update_mode=GridUpdateMode.SELECTION_CHANGED,
-                                # height=height,
-                                # fit_columns_on_grid_load=True,
-                                # allow_unsafe_jscode=True,
-                                # enable_enterprise_modules=True,
-                                # columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
-                                # key = grid_key
-                              # )
-
         grid_response = AgGrid(
                                 df_show,
                                 gridOptions=grid_options,
