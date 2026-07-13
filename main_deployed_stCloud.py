@@ -1431,7 +1431,7 @@ class Analysis():
                                 df,
                                 gridOptions=grid_options,
                                 allow_unsafe_jscode=True,
-                                fit_columns_on_grid_load=True,
+                                # fit_columns_on_grid_load=True,
                                 height=height,
                                 key=f"{grid_key}_{results_key}",
                                 update_on=["selectionChanged"]
