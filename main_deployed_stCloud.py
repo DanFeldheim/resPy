@@ -76,7 +76,6 @@ class Flow_Control():
                                 "tab2_files":[], 
                                 "warning":False,
                                 "uploaded_files_hash":None,
-                                # "snow":False,
                                 "model_plots":False, 
                                 "show_model_plots":False,
                                 "diag_pdf_bytes":None,
@@ -118,10 +117,6 @@ class Flow_Control():
         
         # Render the header
         setup.header()
-        
-        # if not st.session_state["snow"]:
-            # st.snow()
-            # st.session_state["snow"] = True
         
         # Create tabs
         tab1, tab2, tab3, tab4 = setup.tabs()
