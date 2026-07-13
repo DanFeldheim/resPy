@@ -2609,7 +2609,7 @@ class Analysis():
                         "intercept",
                         "SSR",
                        ]
-    
+        #-----------------------------------------------------
         # Build AgGrid options
         gb = GridOptionsBuilder.from_dataframe(df_show)
         
@@ -2623,16 +2623,70 @@ class Analysis():
         gb.configure_selection("single", use_checkbox=True)
         gb.configure_side_bar(columns_panel=True)
         
-        first = df_show.columns[0]
-        second = df_show.columns[1]
+        # first = df_show.columns[0]
+        # second = df_show.columns[1]
         
-        gb.configure_column(first, width=220, minWidth=180)
-        gb.configure_column(second, width=140, minWidth=120)
+        # gb.configure_column(first, width=220, minWidth=180)
+        # gb.configure_column(second, width=140, minWidth=120)
+        # grid_options = gb.build()
+
+        # Default settings must be configured before gb.build()
+        gb.configure_default_column(
+            resizable=True,
+            width=110,
+            minWidth=80,
+            maxWidth=150
+        )
         
+        # Keep Filename wider
+        gb.configure_column(
+            "Filename",
+            width=220,
+            minWidth=180,
+            maxWidth=280
+        )
+        
+        # Narrow the remaining columns
+        gb.configure_column(
+            "Channel",
+            width=90,
+            minWidth=80,
+            maxWidth=110
+        )
+        
+        gb.configure_column(
+            "Start",
+            width=95,
+            minWidth=85,
+            maxWidth=110
+        )
+        
+        gb.configure_column(
+            "End",
+            width=95,
+            minWidth=85,
+            maxWidth=110
+        )
+        
+        gb.configure_column(
+            "Raw slope (umol/L/hr)",
+            width=145,
+            minWidth=125,
+            maxWidth=165
+        )
+        
+        gb.configure_column(
+            "R2",
+            width=80,
+            minWidth=70,
+            maxWidth=95
+        )
+        
+        # Build options only after all configuration is complete
         grid_options = gb.build()
        
         # also good as a general safety net:
-        gb.configure_default_column(resizable=True, minWidth=110)
+        # gb.configure_default_column(resizable=True, minWidth=110)
         
         # Remove filters panel manually from the built options
         if "sideBar" in grid_options and "toolPanels" in grid_options["sideBar"]:
@@ -2656,17 +2710,27 @@ class Analysis():
         visible_rows = min(num_rows, max_rows)
         height = (visible_rows + 1) * base_row_height
     
+        # grid_response = AgGrid(
+                                # df_show,
+                                # gridOptions=grid_options,
+                                # update_mode=GridUpdateMode.SELECTION_CHANGED,
+                                # height=height,
+                                # fit_columns_on_grid_load=True,
+                                # allow_unsafe_jscode=True,
+                                # enable_enterprise_modules=True,
+                                # columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
+                                # key = grid_key
+                              # )
+
         grid_response = AgGrid(
                                 df_show,
                                 gridOptions=grid_options,
-                                update_mode=GridUpdateMode.SELECTION_CHANGED,
+                                update_on=["selectionChanged"],
                                 height=height,
-                                # fit_columns_on_grid_load=True,
                                 allow_unsafe_jscode=True,
                                 enable_enterprise_modules=True,
-                                columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
-                                key = grid_key
-                              )
+                                key=grid_key
+                             )
         
         # Remove a phantom column
         df_export = df_show.drop(columns=["::auto_unique_id::"], errors="ignore")
