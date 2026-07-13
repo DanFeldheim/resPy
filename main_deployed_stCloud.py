@@ -1423,7 +1423,14 @@ class Analysis():
         gb.configure_column("lower_ci", hide=True)
         gb.configure_column("upper_ci", hide=True)
 
-        # Narrow the columns to the right of slope % RSE
+        # Narrow certain columns
+        gb.configure_column(
+                            "slope 95% CI (umol/L/hr)",
+                            width=95,
+                            minWidth=85,
+                            maxWidth=110
+                           )
+                    
         gb.configure_column(
                             "slope % RSE",
                             width=95,
