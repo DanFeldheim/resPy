@@ -1427,20 +1427,11 @@ class Analysis():
         
         results_key = hashlib.md5(pd.util.hash_pandas_object(df, index=True).values).hexdigest()[:8]
         
-        # grid_response = AgGrid(
-                                # df,
-                                # gridOptions=grid_options,
-                                # allow_unsafe_jscode=True,
-                                # fit_columns_on_grid_load=True,
-                                # height=height,
-                                # key=f"{grid_key}_{results_key}",
-                                # update_on=["selectionChanged"]
-                             # )
-
         grid_response = AgGrid(
                                 df,
                                 gridOptions=grid_options,
                                 allow_unsafe_jscode=True,
+                                fit_columns_on_grid_load=True,
                                 height=height,
                                 key=f"{grid_key}_{results_key}",
                                 update_on=["selectionChanged"]
