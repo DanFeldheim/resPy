@@ -1358,13 +1358,9 @@ class Analysis():
         num_rows = len(df)
         visible_rows = min(num_rows, max_rows)
         height = (visible_rows + 1) * base_row_height
-
-        # st.write("CHECKPOINT 1: entered agtable", flush=True)
     
         # Build AgGrid table
         gb = GridOptionsBuilder.from_dataframe(df)
-
-        # st.write("CHECKPOINT 2: created GridOptionsBuilder", flush=True)
         
         # Only enable checkbox selection if requested
         if use_checkboxes:
@@ -1430,8 +1426,6 @@ class Analysis():
         grid_options = gb.build()
         
         results_key = hashlib.md5(pd.util.hash_pandas_object(df, index=True).values).hexdigest()[:8]
-
-        # st.write("CHECKPOINT 3: built grid options", flush=True)
         
         grid_response = AgGrid(
                                 df,
@@ -1442,8 +1436,6 @@ class Analysis():
                                 key=f"{grid_key}_{results_key}",
                                 update_on=["selectionChanged"]
                              )
-
-        # st.write("CHECKPOINT 5: AgGrid returned", flush=True)
                     
         # Show MaxLag warning in a popup window if needed
         # Controlled by session_state['warning'] and ['warning_rendered'] so that it only runs once
