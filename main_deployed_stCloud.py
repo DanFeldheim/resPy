@@ -2634,14 +2634,14 @@ class Analysis():
         # Specific column widths
         gb.configure_column(
                             "Filename",
-                            width=220,
+                            width=205,
                             minWidth=180,
                             maxWidth=300
                            )
         
         gb.configure_column(
                             "Coral ID",
-                            width=120,
+                            width=110,
                             minWidth=100,
                             maxWidth=150
                            )
@@ -2676,9 +2676,9 @@ class Analysis():
         
         gb.configure_column(
                             "Raw slope (umol/L/hr)",
-                            width=145,
+                            width=175,
                             minWidth=125,
-                            maxWidth=170
+                            maxWidth=300
                            )
         
         gb.configure_column(
@@ -2690,23 +2690,23 @@ class Analysis():
         
         gb.configure_column(
                             "Raw slope SE (umol/L/hr)",
-                            width=155,
+                            width=175,
                             minWidth=135,
-                            maxWidth=180
+                            maxWidth=300
                            )
         
         gb.configure_column(
                             "Raw slope %RSE",
-                            width=120,
+                            width=160,
                             minWidth=105,
-                            maxWidth=140
+                            maxWidth=200
                            )
         
         gb.configure_column(
                             "Raw slope 95% CI (umol/L/hr)",
-                            width=180,
+                            width=200,
                             minWidth=155,
-                            maxWidth=210
+                            maxWidth=300
                            )
         
         # These are hidden, but sizing them is harmless
