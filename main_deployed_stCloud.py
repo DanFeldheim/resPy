@@ -2562,7 +2562,7 @@ class Analysis():
     def rolling_reg_ui(self, 
                        final_x_y_valid_dict, 
                        results_df,
-                       top_n_display: int = 3,
+                       top_n_display: int = 10,
                        base_row_height: int = 30, 
                        max_rows: int = 20,
                        grid_key = "aggrid_table"):
