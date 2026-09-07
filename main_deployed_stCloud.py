@@ -2525,7 +2525,7 @@ class Analysis():
                     ssr = np.sum(residuals**2)
                     ci_low = slope - 1.96 * stderr
                     ci_high = slope + 1.96 * stderr
-                    slope_ci = f"{ci_low:.6f} - {ci_high:.6f}"
+                    slope_ci = f"{ci_low:.3f} - {ci_high:.3f}"
                     slope_rse = round((stderr / abs(slope)) * 100, 2) if slope != 0 else np.nan
     
                     window_dict = {
@@ -2535,12 +2535,12 @@ class Analysis():
                                     "Window": f"{xi[0]:.1f} - {xi[-1]:.1f}",
                                     "Start": xi[0],
                                     "End": xi[-1],
-                                    "Raw slope (umol/hr)": round(slope, 6),
-                                    "R2": round(r2, 4),
-                                    "Raw slope SE (umol/hr)": round(stderr, 6),
+                                    "Raw slope (umol/hr)": round(slope, 3),
+                                    "R2": round(r2, 2),
+                                    "Raw slope SE (umol/hr)": round(stderr, 3),
                                     "Raw slope %RSE": slope_rse,
                                     "Raw slope 95% CI (umol/hr)": slope_ci,
-                                    "intercept": round(intercept, 6),
+                                    "intercept": round(intercept, 3),
     
                                     # Kept as optional hidden tie-breaker / diagnostic
                                     "SSR": round(ssr, 3),
