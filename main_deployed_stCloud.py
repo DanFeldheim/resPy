@@ -2430,7 +2430,7 @@ class Analysis():
                                    final_x_y_valid_dict,
                                    all_subset_regs,
                                    window_size,
-                                   step_perc=5):
+                                   step_perc=20):
         """
         Calculates slopes and summary stats for sliding windows across the
         data. If x-axis was changed in Linear Regression tab, this only uses
