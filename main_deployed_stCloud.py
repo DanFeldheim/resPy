@@ -3887,7 +3887,7 @@ class Analysis():
                             "Filename": fname,
                             "Channel": ch,
                             "Most Common Slope (umol/hr)": "Not enough rolling windows",
-                            "Rate Variability (%)": "Not enough rolling windows",
+                            "Slope Variability (%)": "Not enough rolling windows",
                             "Slope Assessment": "Not enough rolling windows",
                            })
                 continue
@@ -3904,7 +3904,7 @@ class Analysis():
                         "Filename": fname,
                         "Channel": ch,
                         "Most Common Slope (umol/hr)": metrics["mode"],
-                        "Rate Variability (%)": variability_display,
+                        "Slope Variability (%)": variability_display,
                         "Slope Assessment": metrics["assessment"],
                        })
       
@@ -3917,7 +3917,7 @@ class Analysis():
         # Rounding for display
         summary = summary.copy()
         
-        for col, decimals in [("Most Common Slope (umol/hr)", 3), ("Rate Variability (%)", 1),]:
+        for col, decimals in [("Most Common Slope (umol/hr)", 3), ("Slope Variability (%)", 1),]:
             summary[col] = summary[col].apply(
                                               lambda x, d=decimals: round(float(x), d)
                                               if isinstance(x, (int, float, np.number)) and np.isfinite(x)
