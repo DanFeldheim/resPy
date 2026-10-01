@@ -1844,7 +1844,8 @@ class Analysis():
     
         plt.close("all")
         
-        figsize = (4, 3)
+        # figsize = (4, 3)
+        figsize = (4, 2)
     
         st.write("")
     
