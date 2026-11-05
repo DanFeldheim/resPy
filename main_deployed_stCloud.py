@@ -1898,7 +1898,9 @@ class Analysis():
                      )
     
             ax.grid(True)
-            plt.tight_layout()
+            # plt.tight_layout()
+            fig_raw.tight_layout()
+            
             st.pyplot(fig_raw, clear_figure=False)
     
             all_plots[f"{file_name}_raw"] = fig_raw
