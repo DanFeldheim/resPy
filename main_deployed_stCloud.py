@@ -41,8 +41,8 @@ import hashlib
 
 
 # Clean up any leftover figures or memory at the start of each run
-plt.close("all")
-gc.collect()
+# plt.close("all")
+# gc.collect()
 
 # Checks memory usage
 def get_memory_usage():
@@ -1842,7 +1842,7 @@ class Analysis():
         # NaN y-values are removed before storing.
         x_y_valid_dict = {}
     
-        plt.close("all")
+        # plt.close("all")
         
         # figsize = (4, 3)
         figsize = (4, 2)
