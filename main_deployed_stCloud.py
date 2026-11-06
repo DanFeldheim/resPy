@@ -1250,7 +1250,7 @@ class Analysis():
         naScrubbed_raw_data_df = raw_data_df.dropna(subset=['Time (s)', 'Ch1', 'Ch2', 'Ch3', 'Ch4'])
 
         del raw_data_df
-        gc.collect()
+        # gc.collect()
         
         return naScrubbed_raw_data_df
     
@@ -1908,7 +1908,7 @@ class Analysis():
     
             plt.close(fig_raw)
             del fig_raw, ax
-            gc.collect()
+            # gc.collect()
     
         return x_y_valid_dict, all_plots
         
