@@ -1888,7 +1888,8 @@ class Analysis():
                             ax.axvline(spike_stop, linestyle="--", linewidth=1)
     
             ax.set_xlabel("Time (s)")
-            ax.set_ylabel(r"O$_2$ ($\mu$mol)")
+            # ax.set_ylabel(r"O$_2$ ($\mu$mol)")
+            ax.set_ylabel("O₂ (µmol)")
             ax.set_title(f"Raw: {file_name}")
     
             ax.legend(
