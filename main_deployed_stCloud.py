@@ -2430,12 +2430,12 @@ class Analysis():
                    
                     fig.suptitle(f"{filename} — {channel}", fontsize=12)
                     
-                    # 0.92 adds space betwee title and plot
-                    fig.tight_layout(rect=[0, 0, 1, 0.92]) 
-                    
                     self.plot_residuals(residuals, axes[0])
                     self.plot_residual_acf(residuals, axes[1], max_lag=max_lag, hard_cap=hard_cap)
                     self.plot_residual_distribution(residuals, axes[2])
+
+                    # 0.92 adds space betwee title and plot
+                    fig.tight_layout(rect=[0, 0, 1, 0.92])
     
                     pdf.savefig(fig, dpi=dpi)
                     plt.close(fig)  
