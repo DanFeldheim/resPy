@@ -381,7 +381,7 @@ class Flow_Control():
                             # edited_df holds the data after user has changed the x-axis
                             # Here it is passed to a function that creates slider bars
                             # for each channel of each file to change x-axis
-                            edited_df, crop_info = plot_data.slider_bars(df, filename, tab1)
+                            edited_df, crop_info = plot_data.slider_bars(df, filename, "tab1")
                             
                             # Plots and Returns new x and y values as a dict with
                             # channel as key and x_valid, y_valid as a list of 
@@ -494,7 +494,7 @@ class Flow_Control():
                                                                    {filename: channel_results},
                                                                    use_checkboxes=False,
                                                                    show_warning=False,
-                                                                   grid_key=f"{tab1}_processed_results_{filename}"
+                                                                   grid_key=f"tab1_processed_results_{filename}"
                                                                   )
                             
                             # Store successful results in master dictionaries
