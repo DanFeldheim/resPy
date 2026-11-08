@@ -4411,6 +4411,7 @@ class Analysis():
         # Display the download button if the PDF has been prepared
         if st.session_state.respiration_pdf_bytes is not None:
 
+            st.write('')
             col1, col2 = st.columns([1,2])
             with col1:
                 st.success("Plot summary ready to download.", icon="🪸")
