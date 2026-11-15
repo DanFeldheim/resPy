@@ -379,7 +379,11 @@ class Flow_Control():
                     
                         try:
                             # Process the file or reuse its cached results
-                            plot_data.process_selected_file(filename, vals)
+                            # plot_data.process_selected_file(filename, vals)
+
+                            # Keep each file's widgets and results in one stable container
+                            with st.container(key=f"analysis_container_{filename}"):
+                                plot_data.process_selected_file(filename, vals)
                     
                         except Exception:
                     
