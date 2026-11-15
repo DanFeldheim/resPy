@@ -2034,28 +2034,24 @@ class Analysis():
         # Show MaxLag warning in a popup window if needed
         # Controlled by session_state['warning'] and ['warning_rendered'] so that it only runs once
         # per upload and only after the first aggrid table
-        if not st.session_state["warning"] and (df["System Lag (Pts)"] > 50).any():
-   
-            col1, col2, col3 = st.columns([1, 3, 1])
-
-            if show_warning:
-                
-                # Use a placeholder to control exact layout
-                placeholder = col2.empty()  
-                
-                with placeholder.container():
-                    st.error(
-                            "System Lag Warning! Runs with System Lag > 50 often reflect poor mixing "
-                            "(e.g., bubbles, blocked flow).\n"
-                            "This can cause underestimated standard errors and overly narrow 95% confidence intervals, "
-                            "making results appear more precise than they are.\n"
-                            "Use the lag-adjusted SE and lag-adjusted 95% CI in the Final Results Table for error analysis."
-                            )
-                        
-                    # Button click sets warning to True
-                    if st.button("Ok", key="maxlag_warning"):
-                        st.session_state["warning"] = True
-                        placeholder.empty()  
+        if show_warning:
+            
+            # Use a placeholder to control exact layout
+            placeholder = col2.empty()  
+            
+            with placeholder.container():
+                st.error(
+                        "System Lag Warning! Runs with System Lag > 50 often reflect poor mixing "
+                        "(e.g., bubbles, blocked flow).\n"
+                        "This can cause underestimated standard errors and overly narrow 95% confidence intervals, "
+                        "making results appear more precise than they are.\n"
+                        "Use the lag-adjusted SE and lag-adjusted 95% CI in the Final Results Table for error analysis."
+                        )
+                    
+                # Button click sets warning to True
+                if st.button("Ok", key="maxlag_warning"):
+                    st.session_state["warning"] = True
+                    placeholder.empty()  
         
         # Return only the rows selected by the user
         selected_rows = grid_response["selected_rows"]
