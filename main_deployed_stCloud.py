@@ -1420,7 +1420,8 @@ class Analysis():
         cached_file = st.session_state.file_results.get(filename)
         
         # Determine whether this file requires recalculation
-        needs_recalculation = (cached_file is None or cached_file.get("signature") != current_signature)
+        # needs_recalculation = (cached_file is None or cached_file.get("signature") != current_signature)
+        needs_recalculation = True
        
         if not needs_recalculation:
             
