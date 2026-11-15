@@ -2041,7 +2041,7 @@ class Analysis():
                 if (not st.session_state["warning"]
                     and (df["System Lag (Pts)"] > 50).any()):
                     
-                    st.error("System Lag Warning! Runs with System Lag > 50 often reflect poor mixing "
+                    st.info("System Lag Warning! Runs with System Lag > 50 often reflect poor mixing "
                              "(e.g., bubbles, blocked flow).\n"
                              "This can cause underestimated standard errors and overly narrow 95% confidence intervals, "
                              "making results appear more precise than they are.\n"
