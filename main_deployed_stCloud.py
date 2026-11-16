@@ -2352,64 +2352,61 @@ class Analysis():
         # figsize = (4, 3)
         figsize = (4, 2)
     
-        st.write("")
+        figsize = (4, 2)
+
+        fig_raw = Figure(figsize=figsize)
+        ax = fig_raw.subplots()
     
-        # Create a Streamlit container for the plot.
-        with st.container():
-            
-            fig_raw = Figure(figsize=figsize)
-            ax = fig_raw.subplots()
-    
-            # Loop through every channel signal column.
-            for ch in edited_df.drop(columns=["Time (s)"]).columns:
-    
-                y = edited_df[ch].values
-    
-                # Create a Boolean mask identifying valid, non-NaN signal values.
-                # Keep only valid data
-                mask = ~np.isnan(y)
-                x_valid = time[mask]
-                y_valid = y[mask]
-    
-                # Store the cleaned x/y arrays for later regression or processing.
-                x_y_valid_dict[ch] = [x_valid, y_valid]
-    
-                # Plot data
-                ax.plot(x_valid, y_valid, label=ch)
-    
-                # If spike extracted
-                if crop_info is not None:
-                    
-                    # Get crop information for this specific channel.
-                    # If the channel is not in crop_info, use an empty dictionary.
-                    info = crop_info.get(ch, {})
-    
-                    # Draw crop markers if spike was removed
-                    if info.get("spike_removed"):
-                        spike_start = info.get("spike_start")
-                        spike_stop = info.get("spike_stop")
-    
-                        if spike_start is not None and spike_stop is not None:
-                            ax.axvline(spike_start, linestyle="--", linewidth=1)
-                            ax.axvline(spike_stop, linestyle="--", linewidth=1)
-    
-            ax.set_xlabel("Time (s)")
-            # ax.set_ylabel(r"O$_2$ ($\mu$mol)")
-            ax.set_ylabel("O₂ (µmol)")
-            ax.set_title(f"Raw: {file_name}")
-    
-            ax.legend(
-                      loc="center left",
-                      bbox_to_anchor=(1, 0.5),
-                      frameon=False
-                     )
-    
-            ax.grid(True)
-            
-            fig_raw.tight_layout()
- 
-            # Store the figure for PDF export
-            all_plots[f"{file_name}_raw"] = fig_raw
+        # Loop through every channel signal column.
+        for ch in edited_df.drop(columns=["Time (s)"]).columns:
+
+            y = edited_df[ch].values
+
+            # Create a Boolean mask identifying valid, non-NaN signal values.
+            # Keep only valid data
+            mask = ~np.isnan(y)
+            x_valid = time[mask]
+            y_valid = y[mask]
+
+            # Store the cleaned x/y arrays for later regression or processing.
+            x_y_valid_dict[ch] = [x_valid, y_valid]
+
+            # Plot data
+            ax.plot(x_valid, y_valid, label=ch)
+
+            # If spike extracted
+            if crop_info is not None:
+                
+                # Get crop information for this specific channel.
+                # If the channel is not in crop_info, use an empty dictionary.
+                info = crop_info.get(ch, {})
+
+                # Draw crop markers if spike was removed
+                if info.get("spike_removed"):
+                    spike_start = info.get("spike_start")
+                    spike_stop = info.get("spike_stop")
+
+                    if spike_start is not None and spike_stop is not None:
+                        ax.axvline(spike_start, linestyle="--", linewidth=1)
+                        ax.axvline(spike_stop, linestyle="--", linewidth=1)
+
+        ax.set_xlabel("Time (s)")
+        # ax.set_ylabel(r"O$_2$ ($\mu$mol)")
+        ax.set_ylabel("O₂ (µmol)")
+        ax.set_title(f"Raw: {file_name}")
+
+        ax.legend(
+                  loc="center left",
+                  bbox_to_anchor=(1, 0.5),
+                  frameon=False
+                 )
+
+        ax.grid(True)
+        
+        fig_raw.tight_layout()
+
+        # Store the figure for PDF export
+        all_plots[f"{file_name}_raw"] = fig_raw
     
         return x_y_valid_dict, all_plots
         
