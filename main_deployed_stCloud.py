@@ -2351,9 +2351,6 @@ class Analysis():
     
         # figsize = (4, 3)
         figsize = (4, 2)
-    
-        figsize = (4, 2)
-
         fig_raw = Figure(figsize=figsize)
         ax = fig_raw.subplots()
     
